@@ -1,13 +1,16 @@
 import CartWidget from './CartWidget';
 
-const NavBar = () => {
+const Navbar = () => {
   return (
     <nav style={{
       backgroundColor: '#0066cc',
       padding: '15px 30px',
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center'
+      alignItems: 'center',
+      margin: 0,
+      width: '100%',
+      boxSizing: 'border-box'
     }}>
       <div>
         <h1 style={{ color: 'white', margin: 0, fontSize: '24px' }}>MiTienda</h1>
@@ -26,4 +29,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;
