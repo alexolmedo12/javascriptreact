@@ -1,32 +1,31 @@
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import CartWidget from './CartWidget';
+import { Link } from 'react-router'; 
 
-const Navbar = () => {
+function NavBar({ categories }) {
   return (
-    <nav style={{
-      backgroundColor: '#0066cc',
-      padding: '15px 30px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      margin: 0,
-      width: '100%',
-      boxSizing: 'border-box'
-    }}>
-      <div>
-        <h1 style={{ color: 'white', margin: 0, fontSize: '24px' }}>MiTienda</h1>
-      </div>
-      
-      <div style={{ display: 'flex', gap: '30px' }}>
-        <a href="#" style={{ color: 'white', textDecoration: 'none' }}>Inicio</a>
-        <a href="#" style={{ color: 'white', textDecoration: 'none' }}>Productos</a>
-        <a href="#" style={{ color: 'white', textDecoration: 'none' }}>Contacto</a>
-      </div>
-      
-      <div>
-        <CartWidget />
-      </div>
-    </nav>
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container>
+        <Navbar.Brand as={Link} to="/">Te lo tengo 🛒</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <NavDropdown title="Categorías" id="basic-nav-dropdown">
+              {categories && categories.map((cat) => (
+                <NavDropdown.Item as={Link} to={`/category/${cat.slug}`} key={cat.slug}>
+                  {cat.name}
+                </NavDropdown.Item>
+              ))}
+            </NavDropdown>
+          </Nav>
+          <CartWidget />
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
-};
+}
 
-export default Navbar;
+export default NavBar;

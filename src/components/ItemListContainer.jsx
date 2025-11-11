@@ -1,19 +1,23 @@
-const ItemListContainer = ({ greeting }) => {
-  return (
-    <div style={{
-      backgroundColor: 'white',
-      padding: '50px',
-      textAlign: 'center',
-      minHeight: '80vh'
-    }}>
-      <h2 style={{ color: '#0066cc', fontSize: '32px' }}>
-        {greeting}
-      </h2>
-      <p style={{ color: '#666', fontSize: '18px', marginTop: '20px' }}>
-        Próximamente nuestro catálogo de productos
-      </p>
-    </div>
-  );
-};
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
+import ItemList from './Item'
 
-export default ItemListContainer;
+function ItemListContainer() {
+  const [items, setItems] = useState([])
+  const { categoryId } = useParams()
+
+  useEffect(() => {
+    const urlCategories = `https://dummyjson.com/products/category/${categoryId}`
+    const urlBase = 'https://dummyjson.com/products'
+
+    fetch(categoryId ? urlCategories : urlBase)
+      .then(res => res.json())
+      .then(data => setItems(data.products))
+  }, [categoryId])
+
+  return (
+    <ItemList items={items} />
+  )
+}
+
+export default ItemListContainer
